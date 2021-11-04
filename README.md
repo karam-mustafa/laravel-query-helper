@@ -1,1 +1,1 @@
-#larvel query helper
+# laravel query helper
