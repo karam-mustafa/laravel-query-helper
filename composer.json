@@ -1,0 +1,25 @@
+{
+    "name": "karam-mustafa/laravel-query-helper",
+    "description": "a laravel package help you to executing more effective databases queries",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Karam mustafa",
+            "email": "karam2mustafa@gmail.com"
+        }
+    ],
+    "autoload" : {
+        "psr-4": {
+            "KMLaravel\\QueryHelper\\" : "src/"
+        }
+    },
+    "autoload-dev": {
+    },
+    "extra" : {
+      "laravel" : {
+          "providers" : [
+              "KMLaravel\\QueryHelper\\Providers\\QueryHelper"
+          ]
+      }
+    }
+}
