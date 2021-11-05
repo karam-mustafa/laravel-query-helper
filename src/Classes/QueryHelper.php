@@ -56,7 +56,7 @@ class QueryHelper
     /**
      * @param  string  $query
      */
-    public function setQuery(string $query)
+    public function setQuery($query)
     {
         $this->query = $query;
     }
@@ -64,7 +64,7 @@ class QueryHelper
     /**
      * @return int
      */
-    public function getAllowedWhereInQueryNumber(): int
+    public function getAllowedWhereInQueryNumber()
     {
         return $this->allowedWhereInQueryNumber;
     }
@@ -74,7 +74,7 @@ class QueryHelper
      *
      * @return  mixed
      */
-    public function setAllowedWhereInQueryNumber(int $allowedWhereInQueryNumber)
+    public function setAllowedWhereInQueryNumber($allowedWhereInQueryNumber)
     {
         $this->allowedWhereInQueryNumber = $allowedWhereInQueryNumber;
         return $this;
@@ -83,7 +83,7 @@ class QueryHelper
     /**
      * @return string
      */
-    public function getFieldToUpdate(): string
+    public function getFieldToUpdate()
     {
         return $this->fieldToUpdate;
     }
@@ -91,7 +91,7 @@ class QueryHelper
     /**
      * @return array
      */
-    public function getSavedItems(): array
+    public function getSavedItems()
     {
         return $this->savedItems;
     }
@@ -101,7 +101,7 @@ class QueryHelper
      *
      * @return \App\Helpers\QueryHelper
      */
-    public function setSavedItems(array $savedItems): QueryHelper
+    public function setSavedItems($savedItems)
     {
         $this->savedItems = $savedItems;
         return $this;
@@ -113,7 +113,7 @@ class QueryHelper
      * @return  QueryHelper
      * @author karam mustafa
      */
-    public function setFieldToUpdate(string $fieldToUpdate): QueryHelper
+    public function setFieldToUpdate($fieldToUpdate)
     {
         $this->fieldToUpdate = $fieldToUpdate;
         return $this;
@@ -134,7 +134,7 @@ class QueryHelper
      * @return  QueryHelper
      * @author karam mustafa
      */
-    public function setValues($values): QueryHelper
+    public function setValues($values)
     {
         $this->values = $values;
         return $this;
@@ -143,7 +143,7 @@ class QueryHelper
     /**
      * @return string
      */
-    public function getTableName(): string
+    public function getTableName()
     {
         return $this->tableName;
     }
@@ -154,7 +154,7 @@ class QueryHelper
      * @return  QueryHelper
      * @author karam mustafa
      */
-    public function setTableName(string $tableName): QueryHelper
+    public function setTableName($tableName)
     {
         $this->tableName = $tableName;
 
@@ -175,7 +175,7 @@ class QueryHelper
      * @return  QueryHelper
      * @author karam mustafa
      */
-    public function setIds($ids): QueryHelper
+    public function setIds($ids)
     {
         $this->ids = $ids;
         return $this;
@@ -196,7 +196,7 @@ class QueryHelper
      * @return  QueryHelper
      * @author karam mustafa
      */
-    public function setCases($cases): QueryHelper
+    public function setCases($cases)
     {
         $this->cases = $cases;
         return $this;
@@ -213,7 +213,7 @@ class QueryHelper
      * @return mixed
      * @author karam mustsfa
      */
-    public static function updateInOneQueryInstance(): QueryHelper
+    public static function updateInOneQueryInstance()
     {
         return new self();
     }
@@ -239,7 +239,7 @@ class QueryHelper
      *
      * @return mixed
      */
-    public function checkIfQueryAllowed($ids, callable $callbackIfPassed = null, $chunkCountAllowed = null)
+    public function checkIfQueryAllowed($ids, $callbackIfPassed = null, $chunkCountAllowed = null)
     {
         if (!isset($chunckCountAllowed)) {
             $chunkCountAllowed = $this->getAllowedWhereInQueryNumber();
@@ -265,7 +265,7 @@ class QueryHelper
      * @throws \Exception
      * @author karam mustafa
      */
-    public function executeUpdateMultiRows(string $key = null): QueryHelper
+    public function executeUpdateMultiRows($key = null)
     {
         try {
             if (isset($key)) {
@@ -288,7 +288,7 @@ class QueryHelper
      * @throws \Exception
      * @author karam mustafa
      */
-    public function buildStatement(): QueryHelper
+    public function buildStatement()
     {
         try {
 
@@ -308,7 +308,7 @@ class QueryHelper
      * @throws \Exception
      * @author karam mustafa
      */
-    public function executeAll(): QueryHelper
+    public function executeAll()
     {
         try {
 
@@ -326,7 +326,7 @@ class QueryHelper
      * @return QueryHelper
      * @author karam mustafa
      */
-    public function bindIdsWithValues(): QueryHelper
+    public function bindIdsWithValues()
     {
         $cases = [];
         foreach ($this->getIds() as $index => $id) {
@@ -348,7 +348,7 @@ class QueryHelper
      * @return QueryHelper
      * @author karam mustafa
      */
-    public function clearAll(): QueryHelper
+    public function clearAll()
     {
         $this->setIds([]);
         $this->setCases([]);
@@ -370,7 +370,7 @@ class QueryHelper
      * @throws \Exception
      * @author karam mustafa
      */
-    public function fastUpdate($tableName, $ids, $vales, $column): QueryHelper
+    public function fastUpdate($tableName, $ids, $vales, $column)
     {
         $this->setTableName($tableName)
             ->setIds($ids)
@@ -389,7 +389,7 @@ class QueryHelper
      * @return bool
      * @author karam mustafa
      */
-    private function checkIfInteger($index): bool
+    private function checkIfInteger($index)
     {
         return is_int($this->getValues()[$index])
             || (is_float($this->getValues()[$index])
