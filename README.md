@@ -20,7 +20,7 @@ composer require kmlaravel/laravel-query-helper
 - #### Laravel uses Package Auto-Discovery, so doesn't require you to manually add the ServiceProvider.
 ##### 2 - Copy the package providers to your local config with the publish command, this will publish asset and config:
 ```shell
-php artisan vendor:publish --provider="KMLaravel\QueryHelper\Providers\QueryHelperServiceProviders"
+php artisan vendor:publish --provider="KMLaravel\\KMLaravel\QueryHelper\Facade\QueryHelperFacade\Providers\\KMLaravel\QueryHelper\Facade\QueryHelperFacadeServiceProviders"
 ```
 - #### or you may publish asset and config separately.
 ```shell
@@ -86,7 +86,7 @@ So the query helper will help you optimize this process, see the following expla
     // if you want to set your cases in query.
     $cases = implode(' ', $cases);
 
-    QueryHelper::updateInOneQueryInstance()
+    \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInOneQueryInstance()
             ->setIds($ids)
             ->setValues($values)
             ->setTableName($tableName) // change this parameter value to your database table name.
@@ -99,7 +99,7 @@ So the query helper will help you optimize this process, see the following expla
 What if you want to put your own Cases ?  **okay we support that**.
 ```php
 
-    $query = QueryHelper::updateInOneQueryInstance()
+    $query = \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInOneQueryInstance()
             ->setIds($ids)
             ->setCasues($cases)
             ->setTableName($tableName) // change this parameter value to your database table name.
@@ -109,7 +109,7 @@ What if you want to put your own Cases ?  **okay we support that**.
 What if you want dump the query which will execute ?  **okay we support that**.
 ```php
 
-    $query = QueryHelper::updateInOneQueryInstance()
+    $query = \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInOneQueryInstance()
             ->setIds($ids)
             ->setValues($values)
             ->setTableName($tableName) // change this parameter value to your database table name.
@@ -122,7 +122,7 @@ What if you want dump the query which will execute ?  **okay we support that**.
 What if you want to reduce these lines in one line ?  **okay we support that**.
 ```php
 
-    $query = QueryHelper::updateInOneQueryInstance()
+    $query = \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInOneQueryInstance()
             ->fastUpdate($tableName , $ids , $values , $columnToUpdate);
     dd($query);
 
@@ -138,7 +138,7 @@ so we have to chunk your large query to smaller pieces, and we can do that for y
     ['name' => 'example 4'],
     ...
     ];   
-    QueryHelper::updateInOneQueryInstance()
+    \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInOneQueryInstance()
         ->setAllowedWhereInQueryNumber(2000) // chunk size and you can update the default value from query_helper.php config file
         ->checkIfQueryAllowed($users , function ($data){
             User::insert($data);
