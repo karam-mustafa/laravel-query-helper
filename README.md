@@ -147,7 +147,7 @@ so we have to chunk your large query to smaller pieces, and we can do that for y
 
 Changelog
 ---------
-Please see the [CHANGELOG](https://github.com/karam-mustafa/laravel-query-helper/blob/main) for more information about what has changed or updated or added recently.
+Please see the [CHANGELOG](https://github.com/karam-mustafa/laravel-query-helper/blob/main/CHANGELOG.md) for more information about what has changed or updated or added recently.
 
 Security
 --------
