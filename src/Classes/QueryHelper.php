@@ -207,12 +207,32 @@ class QueryHelper
         $this->setAllowedWhereInQueryNumber(config('query_helper.allowed_chunk_number'));
     }
 
+    /**
+     * this function return an instance of a current self class, this will be reusable step to add new features.
+     *
+     * @return mixed
+     * @author karam mustsfa
+     */
+    public static function updateInOneQueryInstance(): QueryHelper
+    {
+        return new self();
+    }
+
+    /**
+     * @param $method
+     * @param $parameters
+     *
+     * @return mixed
+     * @author karam mustsfa
+     */
     public static function __callStatic($method, $parameters)
     {
         return (new static)->$method(...$parameters);
     }
 
     /**
+     * this function will chunk set of data to custom size, and each size will apply the callback.
+     *
      * @param $ids
      * @param  callable|null  $callbackIfPassed
      * @param  null  $chunkCountAllowed
@@ -237,7 +257,7 @@ class QueryHelper
     }
 
     /**
-     * @desc this function is execute update multiples rows using case and when statement in sql
+     * this function is execute update multiples rows using case and when statement in sql.
      *
      * @param  string  $key
      *
@@ -245,7 +265,7 @@ class QueryHelper
      * @throws \Exception
      * @author karam mustafa
      */
-    public function executeUpdateMultiRows(string $key = null)
+    public function executeUpdateMultiRows(string $key = null): QueryHelper
     {
         try {
             if (isset($key)) {
@@ -262,13 +282,13 @@ class QueryHelper
     }
 
     /**
-     * @desc build query statement
+     * build query statement
      *
      * @return QueryHelper
      * @throws \Exception
      * @author karam mustafa
      */
-    public function buildStatement()
+    public function buildStatement(): QueryHelper
     {
         try {
 
@@ -282,13 +302,13 @@ class QueryHelper
     }
 
     /**
-     * @desc execute query statement
+     * execute query statement
      *
-     * @return string
+     * @return QueryHelper
      * @throws \Exception
      * @author karam mustafa
      */
-    public function executeAll()
+    public function executeAll(): QueryHelper
     {
         try {
 
@@ -301,6 +321,7 @@ class QueryHelper
     }
 
     /**
+     * this function will build [when id = ? then ?] sql query statement.
      *
      * @return QueryHelper
      * @author karam mustafa
@@ -322,6 +343,7 @@ class QueryHelper
     }
 
     /**
+     * clear all data.
      *
      * @return QueryHelper
      * @author karam mustafa
@@ -337,6 +359,7 @@ class QueryHelper
     }
 
     /**
+     * this function will reduce callback functions.
      *
      * @param $tableName
      * @param $ids
@@ -359,12 +382,14 @@ class QueryHelper
     }
 
     /**
+     * check if the value is float.
+     *
      * @param $index
      *
      * @return bool
      * @author karam mustafa
      */
-    private function checkIfInteger($index)
+    private function checkIfInteger($index): bool
     {
         return is_int($this->getValues()[$index])
             || (is_float($this->getValues()[$index])
