@@ -8,6 +8,9 @@
             "email": "karam2mustafa@gmail.com"
         }
     ],
+    "require": {
+        "php": "^7.2.5"
+    },
     "autoload" : {
         "psr-4": {
             "KMLaravel\\QueryHelper\\" : "src/"
