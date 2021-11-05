@@ -170,7 +170,7 @@ class QueryHelper
     }
 
     /**
-     * @param  mixed  $ids
+     * @param  array  $ids
      *
      * @return  QueryHelper
      * @author karam mustafa

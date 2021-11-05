@@ -16,10 +16,10 @@
     "autoload-dev": {
     },
     "extra" : {
-      "laravel" : {
-          "providers" : [
-              "KMLaravel\\QueryHelper\\Providers\\QueryHelper"
-          ]
-      }
+        "laravel" : {
+            "providers" : [
+                "KMLaravel\\QueryHelper\\Providers\\QueryHelperServiceProviders"
+            ]
+        }
     }
 }
