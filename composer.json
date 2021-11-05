@@ -1,6 +1,6 @@
 {
     "name": "kmlaravel/laravel-query-helper",
-    "description": "a laravel package help you to executing more effective databases queries",
+    "description": "a Laravel package help you to execute more effective databases queries",
     "license": "MIT",
     "authors": [
         {
