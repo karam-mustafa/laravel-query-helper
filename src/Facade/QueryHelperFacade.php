@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Facade;
  * @method \KMLaravel\QueryHelper\Classes\QueryHelper setIds($ids)
  * @method \KMLaravel\QueryHelper\Classes\QueryHelper getCases()
  * @method \KMLaravel\QueryHelper\Classes\QueryHelper setCases($cases)
+ * @method \KMLaravel\QueryHelper\Classes\QueryHelper updateInOneQueryInstance()
  * @method \KMLaravel\QueryHelper\Classes\QueryHelper checkIfQueryAllowed($ids, $callbackIfPassed = null, $chunkCountAllowed = null)
  * @method \KMLaravel\QueryHelper\Classes\QueryHelper executeUpdateMultiRows($key = null)
  * @method \KMLaravel\QueryHelper\Classes\QueryHelper buildStatement()
