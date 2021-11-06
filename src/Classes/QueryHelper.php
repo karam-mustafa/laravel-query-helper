@@ -4,7 +4,6 @@
 namespace KMLaravel\QueryHelper\Classes;
 
 use Illuminate\Support\Facades\DB;
-use KMLaravel\UpdateHelper\Classes\UpdateHelper;
 
 class QueryHelper
 {
@@ -64,7 +63,7 @@ class QueryHelper
     /**
      * this function return an instance of an update helper class.
      *
-     * @return mixed
+     * @return UpdateHelper
      * @author karam mustsfa
      */
     public static function updateInOneQueryInstance()
@@ -75,7 +74,7 @@ class QueryHelper
     /**
      * this function return an instance of an update helper class.
      *
-     * @return mixed
+     * @return UpdateHelper
      * @author karam mustsfa
      */
     public static function updateInstance()
@@ -85,7 +84,7 @@ class QueryHelper
     /**
      * this function return an instance of an insert helper class.
      *
-     * @return mixed
+     * @return InsertHelper
      * @author karam mustsfa
      */
     public static function InsertInstance()
@@ -96,7 +95,7 @@ class QueryHelper
     /**
      * this function return an instance of a delete helper class.
      *
-     * @return mixed
+     * @return DeleteHelper
      * @author karam mustsfa
      */
     public static function deleteInstance()

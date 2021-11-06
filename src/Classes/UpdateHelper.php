@@ -1,7 +1,7 @@
 <?php
 
 
-namespace KMLaravel\UpdateHelper\Classes;
+namespace KMLaravel\QueryHelper\Classes;
 
 
 class UpdateHelper

@@ -6,10 +6,10 @@ namespace KMLaravel\QueryHelper\Facade;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method \KMLaravel\QueryHelper\Classes\QueryHelper updateInOneQueryInstance()
- * @method \KMLaravel\QueryHelper\Classes\QueryHelper deleteInstance()
- * @method \KMLaravel\QueryHelper\Classes\QueryHelper updateInstance()
- * @method \KMLaravel\QueryHelper\Classes\QueryHelper InsertInstance()
+ * @method static \KMLaravel\QueryHelper\Classes\QueryHelper updateInOneQueryInstance()
+ * @method static \KMLaravel\QueryHelper\Classes\QueryHelper deleteInstance()
+ * @method static \KMLaravel\QueryHelper\Classes\QueryHelper updateInstance()
+ * @method static \KMLaravel\QueryHelper\Classes\QueryHelper InsertInstance()
  */
 class QueryHelperFacade extends Facade
 {
