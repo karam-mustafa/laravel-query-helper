@@ -4,52 +4,18 @@
 namespace KMLaravel\QueryHelper\Classes;
 
 
-class UpdateHelper
+class UpdateHelper extends BaseHelper
 {
-
-    /**
-     * @var string
-     */
-    public $tableName = '';
-
-    /**
-     * @var mixed
-     */
-    public $ids;
+    
     /**
      * @var mixed
      */
     public $cases;
 
     /**
-     * @var mixed
-     */
-    public $values;
-
-    /**
      * @var string
      */
     public $fieldToUpdate;
-    /**
-     * @var string
-     */
-    public $query;
-
-    /**
-     * @return string
-     */
-    public function getQuery()
-    {
-        return $this->query;
-    }
-
-    /**
-     * @param  string  $query
-     */
-    public function setQuery($query)
-    {
-        $this->query = $query;
-    }
 
 
     /**
@@ -64,76 +30,13 @@ class UpdateHelper
     /**
      * @param  string  $fieldToUpdate
      *
-     * @return  \KMLaravel\UpdateHelper\Classes\UpdateHelper
+     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
      * @author karam mustafa
      */
     public function setFieldToUpdate($fieldToUpdate)
     {
         $this->fieldToUpdate = $fieldToUpdate;
         return $this;
-    }
-
-    /**
-     * @return array
-     * @author karam mustafa
-     */
-    public function getValues()
-    {
-        return $this->values;
-    }
-
-    /**
-     * @param  mixed  $values
-     *
-     * @return  \KMLaravel\UpdateHelper\Classes\UpdateHelper
-     * @author karam mustafa
-     */
-    public function setValues($values)
-    {
-        $this->values = $values;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTableName()
-    {
-        return $this->tableName;
-    }
-
-    /**
-     * @param  string  $tableName
-     *
-     * @return  \KMLaravel\UpdateHelper\Classes\UpdateHelper
-     * @author karam mustafa
-     */
-    public function setTableName($tableName)
-    {
-        $this->tableName = $tableName;
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getIds()
-    {
-        return $this->ids;
-    }
-
-    /**
-     * @param  array  $ids
-     *
-     * @return  \KMLaravel\UpdateHelper\Classes\UpdateHelper
-     * @author karam mustafa
-     */
-    public function setIds($ids)
-    {
-        $this->ids = $ids;
-        return $this;
-
     }
 
     /**
@@ -147,7 +50,7 @@ class UpdateHelper
     /**
      * @param  mixed  $cases
      *
-     * @return  \KMLaravel\UpdateHelper\Classes\UpdateHelper
+     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
      * @author karam mustafa
      */
     public function setCases($cases)
@@ -155,12 +58,13 @@ class UpdateHelper
         $this->cases = $cases;
         return $this;
     }
+
     /**
      * this function is execute update multiples rows using case and when statement in sql.
      *
      * @param  string  $key
      *
-     * @return \KMLaravel\UpdateHelper\Classes\UpdateHelper
+     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
      * @throws \Exception
      * @author karam mustafa
      */
@@ -183,37 +87,25 @@ class UpdateHelper
     /**
      * build query statement
      *
-     * @return \KMLaravel\UpdateHelper\Classes\UpdateHelper
+     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
      * @throws \Exception
      * @author karam mustafa
      */
     public function buildStatement()
     {
         try {
+            $query = sprintf(
+                "UPDATE %s SET %s =  CASE %s END WHERE id IN (%s)",
+                $this->getTableName(),
+                $this->getFieldToUpdate(),
+                $this->getCases(),
+                $this->getIds()
+            );
 
-            $this->setQuery("UPDATE {$this->getTableName()} SET {$this->getFieldToUpdate()} = CASE {$this->getCases()} END WHERE id IN ({$this->getIds()})");
-
-            return $this;
-
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
-        }
-    }
-
-    /**
-     * execute query statement
-     *
-     * @return \KMLaravel\UpdateHelper\Classes\UpdateHelper
-     * @throws \Exception
-     * @author karam mustafa
-     */
-    public function executeAll()
-    {
-        try {
-
-            DB::statement($this->getQuery());
+            $this->setQuery($query);
 
             return $this;
+
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
@@ -222,7 +114,7 @@ class UpdateHelper
     /**
      * this function will build [when id = ? then ?] sql query statement.
      *
-     * @return \KMLaravel\UpdateHelper\Classes\UpdateHelper
+     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
      * @author karam mustafa
      */
     public function bindIdsWithValues()
@@ -242,22 +134,6 @@ class UpdateHelper
     }
 
     /**
-     * clear all data.
-     *
-     * @return \KMLaravel\UpdateHelper\Classes\UpdateHelper
-     * @author karam mustafa
-     */
-    public function clearAll()
-    {
-        $this->setIds([]);
-        $this->setCases([]);
-        $this->setValues([]);
-        $this->setQuery('');
-
-        return $this;
-    }
-
-    /**
      * this function will reduce callback functions.
      *
      * @param $tableName
@@ -265,8 +141,7 @@ class UpdateHelper
      * @param $vales
      * @param $column
      *
-     * @return \KMLaravel\UpdateHelper\Classes\UpdateHelper
-     * @throws \Exception
+     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
      * @author karam mustafa
      */
     public function fastUpdate($tableName, $ids, $vales, $column)
@@ -278,20 +153,5 @@ class UpdateHelper
             ->bindIdsWithValues()
             ->executeUpdateMultiRows();
         return $this;
-    }
-
-    /**
-     * check if the value is float.
-     *
-     * @param $index
-     *
-     * @return bool
-     * @author karam mustafa
-     */
-    private function checkIfInteger($index)
-    {
-        return is_int($this->getValues()[$index])
-            || (is_float($this->getValues()[$index])
-                && floatval($this->getValues()[$index]));
     }
 }
