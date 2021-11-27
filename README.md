@@ -27,7 +27,7 @@ php artisan vendor:publish --provider="KMLaravel\\KMLaravel\QueryHelper\Facade\Q
 php artisan vendor:publish --tag=query-helper-config
 ```
 
-Basic usage
+Basic usage for an update methods
 -----------
 Suppose we have a group of users who have an id and a name and we have an array to update each user with a new name 
 as in the following example
@@ -86,7 +86,7 @@ So the query helper will help you optimize this process, see the following expla
     // if you want to set your cases in query.
     $cases = implode(' ', $cases);
 
-    \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInOneQueryInstance()
+    \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInstance()
             ->setIds($ids)
             ->setValues($values)
             ->setTableName($tableName) // change this parameter value to your database table name.
@@ -99,7 +99,7 @@ So the query helper will help you optimize this process, see the following expla
 What if you want to put your own Cases ?  **okay we support that**.
 ```php
 
-    $query = \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInOneQueryInstance()
+    $query = \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInstance()
             ->setIds($ids)
             ->setCasues($cases)
             ->setTableName($tableName) // change this parameter value to your database table name.
@@ -109,7 +109,7 @@ What if you want to put your own Cases ?  **okay we support that**.
 What if you want dump the query which will execute ?  **okay we support that**.
 ```php
 
-    $query = \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInOneQueryInstance()
+    $query = \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInstance()
             ->setIds($ids)
             ->setValues($values)
             ->setTableName($tableName) // change this parameter value to your database table name.
@@ -122,7 +122,7 @@ What if you want dump the query which will execute ?  **okay we support that**.
 What if you want to reduce these lines in one line ?  **okay we support that**.
 ```php
 
-    $query = \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInOneQueryInstance()
+    $query = \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInstance()
             ->fastUpdate($tableName , $ids , $values , $columnToUpdate);
     dd($query);
 
@@ -138,11 +138,22 @@ so we have to chunk your large query to smaller pieces, and we can do that for y
     ['name' => 'example 4'],
     ...
     ];   
-    \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInOneQueryInstance()
+    \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInstance()
         ->setAllowedWhereInQueryNumber(2000) // chunk size and you can update the default value from query_helper.php config file
         ->checkIfQueryAllowed($users , function ($data){
             User::insert($data);
         });
+```
+Basic usage for an delete methods
+-----------
+Suppose you want to drop multiple tables by their names in the database, you can do it with the following implementation.
+```php
+
+    \KMLaravel\QueryHelper\Facade\QueryHelperFacade::deleteInstance()
+        ->setTables(['posts', 'users' , 'comments']) // tables names
+        ->dropMultiTables()
+        ->executeAll();
+
 ```
 
 Changelog
