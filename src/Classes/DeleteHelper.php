@@ -14,7 +14,7 @@ class DeleteHelper extends BaseHelper
 {
 
     /**
-     * drope multiple tables by their names in the database
+     * drop multiple tables by their names in the database
      *
      * @return DeleteHelper
      * @author karam mustafa
