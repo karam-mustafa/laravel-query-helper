@@ -4,7 +4,7 @@
 namespace KMLaravel\QueryHelper\Classes;
 
 
-class InsertHelper
+class InsertHelper extends BaseHelper
 {
 
 }
