@@ -3,58 +3,10 @@
 
 namespace KMLaravel\QueryHelper\Classes;
 
-use Illuminate\Support\Facades\DB;
 
-class QueryHelper
+class QueryHelper extends BaseHelper
 {
-    /**
-     * @var int
-     */
-    public $allowedWhereInQueryNumber = 0;
-
-    /**
-     * @var array
-     */
-    public $savedItems = [];
-
-    /**
-     * @return array
-     */
-    public function getSavedItems()
-    {
-        return $this->savedItems;
-    }
-
-    /**
-     * @param  array  $savedItems
-     *
-     * @return \KMLaravel\QueryHelper\Classes\QueryHelper
-     */
-    public function setSavedItems($savedItems)
-    {
-        $this->savedItems = $savedItems;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAllowedWhereInQueryNumber()
-    {
-        return $this->allowedWhereInQueryNumber;
-    }
-
-    /**
-     * @param  int  $allowedWhereInQueryNumber
-     *
-     * @return  mixed
-     */
-    public function setAllowedWhereInQueryNumber($allowedWhereInQueryNumber)
-    {
-        $this->allowedWhereInQueryNumber = $allowedWhereInQueryNumber;
-        return $this;
-    }
-
+    
     public function __construct()
     {
         $this->setAllowedWhereInQueryNumber(config('query_helper.allowed_chunk_number'));
@@ -102,31 +54,5 @@ class QueryHelper
     {
         return new DeleteHelper();
     }
-
-    /**
-     * this function will chunk set of data to custom size, and each size will apply the callback.
-     *
-     * @param $ids
-     * @param  callable|null  $callbackIfPassed
-     * @param  null  $chunkCountAllowed
-     *
-     * @return mixed
-     */
-    public function checkIfQueryAllowed($ids, $callbackIfPassed = null, $chunkCountAllowed = null)
-    {
-        if (!isset($chunckCountAllowed)) {
-            $chunkCountAllowed = $this->getAllowedWhereInQueryNumber();
-        }
-
-        $items = [];
-        $lists = collect($ids)->chunk($chunkCountAllowed + 1);
-        if (!is_null($callbackIfPassed)) {
-            foreach ($lists as $list) {
-                $items[] = $callbackIfPassed($list);
-            }
-        }
-        $this->savedItems = $items;
-        return $items;
-    }
-
+    
 }
