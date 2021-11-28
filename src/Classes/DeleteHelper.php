@@ -4,6 +4,8 @@
 namespace KMLaravel\QueryHelper\Classes;
 
 
+use Illuminate\Support\Facades\DB;
+
 /**
  * Class DeleteHelper
  *
@@ -27,6 +29,32 @@ class DeleteHelper extends BaseHelper
             $query .= $index == 0 ? "`$table`" : ",`$table`";
         }
         $this->setQuery(sprintf("DROP TABLE %s;", $query));
+
+        return $this;
+    }
+
+    /**
+     * this function is divide the process of deleting data into a number of queries,
+     * instead of making a large query that may take longer.
+     * and you can dump the index for each iteration in the checkIfQueryAllowed function.
+     *
+     * @param  \Closure|null  $callback
+     *
+     * @return \KMLaravel\QueryHelper\Classes\DeleteHelper
+     * @author karam mustafa
+     */
+    public function deleteLargeData(\Closure $callback = null)
+    {
+        $field = $this->getField();
+
+        $table = DB::table($this->getTableName());
+
+        $ids = isset($callback)
+            ? $callback($table)
+            : $table->pluck($field)->toArray();
+        $this->checkIfQueryAllowed($ids, function ($items, $index) use ($field, $table) {
+            return $table->whereIn($field, $items)->delete();
+        });
 
         return $this;
     }
