@@ -28,7 +28,31 @@ abstract class BaseHelper
      * @var string
      */
     public $query;
-
+    /**
+     * @var string
+     */
+    public $field = 'id';
+    
+    /**
+     * @return string
+     */
+    public function getField()
+    {
+        return $this->field;
+    }
+    
+    /**
+     * @param  string  $field
+     *
+     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
+     * @author karam mustafa
+     */
+    public function setField($field)
+    {
+        $this->field = $field;
+        return $this;
+    }
+    
     /**
      * @return array
      */
@@ -166,7 +190,7 @@ abstract class BaseHelper
     /**
      * @param  int  $allowedWhereInQueryNumber
      *
-     * @return  mixed
+     * @return  \KMLaravel\QueryHelper\Classes\BaseHelper
      */
     public function setAllowedWhereInQueryNumber($allowedWhereInQueryNumber)
     {
@@ -192,8 +216,8 @@ abstract class BaseHelper
         $items = [];
         $lists = collect($ids)->chunk($chunkCountAllowed + 1);
         if (!is_null($callbackIfPassed)) {
-            foreach ($lists as $list) {
-                $items[] = $callbackIfPassed($list);
+            foreach ($lists as $index => $list) {
+                $items[] = $callbackIfPassed($list , $index);
             }
         }
         $this->savedItems = $items;
