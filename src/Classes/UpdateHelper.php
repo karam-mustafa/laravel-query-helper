@@ -13,33 +13,6 @@ class UpdateHelper extends BaseHelper
     public $cases;
 
     /**
-     * @var string
-     */
-    public $fieldToUpdate;
-
-
-    /**
-     * @return string
-     */
-    public function getFieldToUpdate()
-    {
-        return $this->fieldToUpdate;
-    }
-
-
-    /**
-     * @param  string  $fieldToUpdate
-     *
-     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
-     * @author karam mustafa
-     */
-    public function setFieldToUpdate($fieldToUpdate)
-    {
-        $this->fieldToUpdate = $fieldToUpdate;
-        return $this;
-    }
-
-    /**
      * @return mixed
      */
     public function getCases()
@@ -72,7 +45,7 @@ class UpdateHelper extends BaseHelper
     {
         try {
             if (isset($key)) {
-                $this->setFieldToUpdate($key);
+                $this->setField($key);
             }
 
             $this->buildStatement()->executeAll();
@@ -97,7 +70,7 @@ class UpdateHelper extends BaseHelper
             $query = sprintf(
                 "UPDATE %s SET %s =  CASE %s END WHERE id IN (%s)",
                 $this->getTableName(),
-                $this->getFieldToUpdate(),
+                $this->getField(),
                 $this->getCases(),
                 $this->getIds()
             );
@@ -149,7 +122,7 @@ class UpdateHelper extends BaseHelper
         $this->setTableName($tableName)
             ->setIds($ids)
             ->setValues($vales)
-            ->setFieldToUpdate($column)
+            ->setField($column)
             ->bindIdsWithValues()
             ->executeUpdateMultiRows();
         return $this;
