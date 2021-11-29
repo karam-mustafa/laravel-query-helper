@@ -90,7 +90,7 @@ So the query helper will help you optimize this process, see the following expla
             ->setIds($ids)
             ->setValues($values)
             ->setTableName($tableName) // change this parameter value to your database table name.
-            ->setFieldToUpdate($columnToUpdate) // change this parameter value to your database column name.
+            ->setField($columnToUpdate) // change this parameter value to your database column name.
             ->bindIdsWithValues()
             ->executeUpdateMultiRows();
 
@@ -103,7 +103,7 @@ What if you want to put your own Cases ?  **okay we support that**.
             ->setIds($ids)
             ->setCasues($cases)
             ->setTableName($tableName) // change this parameter value to your database table name.
-            ->setFieldToUpdate($columnToUpdate) // change this parameter value to your database column name.
+            ->setField($columnToUpdate) // change this parameter value to your database column name.
             ->executeUpdateMultiRows();
 ```
 What if you want dump the query which will execute ?  **okay we support that**.
@@ -113,7 +113,7 @@ What if you want dump the query which will execute ?  **okay we support that**.
             ->setIds($ids)
             ->setValues($values)
             ->setTableName($tableName) // change this parameter value to your database table name.
-            ->setFieldToUpdate($columnToUpdate) // change this parameter value to your database column name.
+            ->setField($columnToUpdate) // change this parameter value to your database column name.
             ->buildStatement()
             ->getQuery();
     dd($query);
