@@ -32,7 +32,7 @@ abstract class BaseHelper
      * @var string
      */
     public $field = 'id';
-    
+
     /**
      * @return string
      */
@@ -40,7 +40,7 @@ abstract class BaseHelper
     {
         return $this->field;
     }
-    
+
     /**
      * @param  string  $field
      *
@@ -52,7 +52,7 @@ abstract class BaseHelper
         $this->field = $field;
         return $this;
     }
-    
+
     /**
      * @return array
      */
@@ -68,7 +68,14 @@ abstract class BaseHelper
      */
     public function setTables($tables)
     {
-        $this->tables = $tables;
+        if (is_array($tables)) {
+            $this->tables = array_merge($this->tables, $tables);
+        }
+
+        if (is_string($tables)) {
+            array_push($this->tables, $tables);
+        }
+
         return $this;
     }
 
@@ -217,7 +224,7 @@ abstract class BaseHelper
         $lists = collect($ids)->chunk($chunkCountAllowed + 1);
         if (!is_null($callbackIfPassed)) {
             foreach ($lists as $index => $list) {
-                $items[] = $callbackIfPassed($list , $index);
+                $items[] = $callbackIfPassed($list, $index);
             }
         }
         $this->savedItems = $items;
