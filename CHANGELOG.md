@@ -1,5 +1,8 @@
 #Changelog
 
+## v1.3.0
+* Delete all the database tables.
+
 ## v1.2.0
 * Refactor update helper, move getFieldToUpdate function to BaseHelper and rename this function to getField.
 * Add delete large data function.

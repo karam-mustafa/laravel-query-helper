@@ -7,8 +7,14 @@ sql queries, this package will contain all advanced sql queries to Help us write
 
 Features
 --------
-- Update multi records in one query.
-- Chunk a large query to smaller pieces.
+- Update Helper
+    - Update multi records in one query.
+- Delete Helper
+    - Delete large data by splitting the query into smaller queries.
+    - Drop custom tables from the database.
+    - Drop all tables from the database.
+- Optimizing
+    - Chunk a large query to smaller pieces.
 
 Installation
 ------------
@@ -27,7 +33,7 @@ php artisan vendor:publish --provider="KMLaravel\\KMLaravel\QueryHelper\Facade\Q
 php artisan vendor:publish --tag=query-helper-config
 ```
 
-Basic usage for an update helper methods
+Update helper
 -----------
 Suppose we have a group of users who have an id and a name and we have an array to update each user with a new name 
 as in the following example
@@ -127,24 +133,7 @@ What if you want to reduce these lines in one line ?  **okay we support that**.
     dd($query);
 
 ```
-In some databases, you can't do any process that require more than 65K of parameters,
-so we have to chunk your large query to smaller pieces, and we can do that for you ar effective way.
-```php
-    // Suppose we have a group of users, let say's we have 100k items to insert.
-    $users = [
-    ['name' => 'example 1'],
-    ['name' => 'example 2'],
-    ['name' => 'example 3'],
-    ['name' => 'example 4'],
-    ...
-    ];   
-    \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInstance()
-        ->setAllowedWhereInQueryNumber(2000) // chunk size and you can update the default value from query_helper.php config file.
-        ->checkIfQueryAllowed($users , function ($data){
-            User::insert($data);
-        });
-```
-Basic usage for a delete helper methods
+Delete helper
 -----------
 Suppose you want to drop multiple tables by their names in the database, you can do it with the following implementation.
 ```php
@@ -177,6 +166,33 @@ so this function divides the large query into more queries with an easy-to-use s
             return $table->where('id', '<', 100)->pluck('id')->toArray();
         }); //  this will implement the delete process only on the result of this callback.
 ```
+If you want to drop all tables from the database.
+```php
+
+    \KMLaravel\QueryHelper\Facade\QueryHelperFacade::deleteInstance()
+        ->prepareDataBaseTablesToDrop()
+        ->executeAll();
+```
+Optimizing
+-----------
+In some databases, you can't do any process that require more than 65K of parameters,
+so we have to chunk your large query to smaller pieces, and we can do that for you ar effective way.
+```php
+    // Suppose we have a group of users, let say's we have 100k items to insert.
+    $users = [
+    ['name' => 'example 1'],
+    ['name' => 'example 2'],
+    ['name' => 'example 3'],
+    ['name' => 'example 4'],
+    ...
+    ];   
+    \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInstance()
+        ->setAllowedWhereInQueryNumber(2000) // chunk size and you can update the default value from query_helper.php config file.
+        ->checkIfQueryAllowed($users , function ($data){
+            User::insert($data);
+        });
+```
+
 Changelog
 ---------
 Please see the [CHANGELOG](https://github.com/karam-mustafa/laravel-query-helper/blob/main/CHANGELOG.md) for more information about what has changed or updated or added recently.
