@@ -52,10 +52,42 @@ class DeleteHelper extends BaseHelper
         $ids = isset($callback)
             ? $callback($table)
             : $table->pluck($field)->toArray();
+
         $this->checkIfQueryAllowed($ids, function ($items, $index) use ($field, $table) {
             return $table->whereIn($field, $items)->delete();
         });
 
         return $this;
+    }
+
+    /**
+     * drop all tables in the database.
+     *
+     * @return DeleteHelper
+     * @author karam mustafa
+     */
+    public function prepareDataBaseTablesToDrop()
+    {
+        $this->getAllTablesFromDatabase();
+
+        $colname = 'Tables_in_'.env('DB_DATABASE');
+
+        foreach ($this->getSavedItems() as $table) {
+            $this->setTables($table->$colname);
+        }
+
+        $this->dropMultiTables();
+
+        return $this;
+    }
+
+    /**
+     * fetch all database tables.
+     *
+     * @author karam mustafa
+     */
+    private function getAllTablesFromDatabase()
+    {
+        $this->setSavedItems(DB::select('SHOW TABLES'));
     }
 }
