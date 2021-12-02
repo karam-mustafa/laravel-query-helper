@@ -234,13 +234,19 @@ abstract class BaseHelper
     /**
      * execute query statement
      *
+     * @param  callable|null  $callback
+     *
      * @return \KMLaravel\QueryHelper\Classes\BaseHelper
      * @throws \Exception
      * @author karam mustafa
      */
-    public function executeAll()
+    public function executeAll($callback = null)
     {
         try {
+
+            if (isset($callback)) {
+                return $callback($this->getQuery());
+            }
 
             DB::statement($this->getQuery());
 
