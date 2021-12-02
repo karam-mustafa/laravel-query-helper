@@ -34,6 +34,63 @@ abstract class BaseHelper
     public $field = 'id';
 
     /**
+     * @var boolean
+     */
+    private $isSlecetStatus = false;
+
+    /**
+     * @return bool
+     * @author karam mustaf
+     */
+    public function isSlecetStatus()
+    {
+        return $this->isSlecetStatus;
+    }
+
+    /**
+     * @param  bool  $isSlecetStatus
+     *
+     *
+     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
+     * @author karam mustaf
+     */
+    public function setIsSlecetStatus($isSlecetStatus = true)
+    {
+        $this->isSlecetStatus = $isSlecetStatus;
+
+        return $this;
+    }
+
+    /**
+     * @param  array  $selection
+     *
+     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
+     * @author karam mustaf
+     */
+    public function setSelection($selection)
+    {
+        if ($selection != ['id']) {
+            $this->selection = $selection;
+        }
+        
+        return $this;
+    }
+
+    /**
+     * @param  boolean  $implode
+     *
+     * @return string
+     * @author karam mustaf
+     */
+    public function getSelection($implode = true)
+    {
+        if ($implode) {
+            return implode(',', $this->selection);
+        }
+        return $this->selection;
+    }
+
+    /**
      * @return string
      */
     public function getField()
@@ -246,6 +303,10 @@ abstract class BaseHelper
 
             if (isset($callback)) {
                 return $callback($this->getQuery());
+            }
+
+            if ($this->isSlecetStatus) {
+                return DB::select(DB::raw($this->getQuery()));
             }
 
             DB::statement($this->getQuery());
