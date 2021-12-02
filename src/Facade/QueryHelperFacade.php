@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static \KMLaravel\QueryHelper\Classes\UpdateHelper updateInOneQueryInstance()
  * @method static \KMLaravel\QueryHelper\Classes\DeleteHelper deleteInstance()
  * @method static \KMLaravel\QueryHelper\Classes\UpdateHelper updateInstance()
- * @method static \KMLaravel\QueryHelper\Classes\InsertHelper InsertInstance()
+ * @method static \KMLaravel\QueryHelper\Classes\InsertHelper insertInstance()
+ * @method static \KMLaravel\QueryHelper\Classes\JoinerHelper joinerInstance()
  */
 class QueryHelperFacade extends Facade
 {
