@@ -36,27 +36,27 @@ abstract class BaseHelper
     /**
      * @var boolean
      */
-    private $isSlecetStatus = false;
+    private $isSelectStatus = false;
 
     /**
      * @return bool
      * @author karam mustaf
      */
-    public function isSlecetStatus()
+    public function isSelectStatus()
     {
-        return $this->isSlecetStatus;
+        return $this->isSelectStatus;
     }
 
     /**
-     * @param  bool  $isSlecetStatus
+     * @param  bool  $isSelectStatus
      *
      *
-     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
+     * @return \KMLaravel\QueryHelper\Classes\BaseHelper
      * @author karam mustaf
      */
-    public function setIsSlecetStatus($isSlecetStatus = true)
+    public function setIsSelectStatus($isSelectStatus = true)
     {
-        $this->isSlecetStatus = $isSlecetStatus;
+        $this->isSelectStatus = $isSelectStatus;
 
         return $this;
     }
@@ -64,7 +64,7 @@ abstract class BaseHelper
     /**
      * @param  array  $selection
      *
-     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
+     * @return \KMLaravel\QueryHelper\Classes\BaseHelper
      * @author karam mustaf
      */
     public function setSelection($selection)
@@ -72,7 +72,7 @@ abstract class BaseHelper
         if ($selection != ['id']) {
             $this->selection = $selection;
         }
-        
+
         return $this;
     }
 
@@ -101,12 +101,13 @@ abstract class BaseHelper
     /**
      * @param  string  $field
      *
-     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
+     * @return \KMLaravel\QueryHelper\Classes\BaseHelper
      * @author karam mustafa
      */
     public function setField($field)
     {
         $this->field = $field;
+
         return $this;
     }
 
@@ -305,7 +306,7 @@ abstract class BaseHelper
                 return $callback($this->getQuery());
             }
 
-            if ($this->isSlecetStatus) {
+            if ($this->isSelectStatus()) {
                 return DB::select(DB::raw($this->getQuery()));
             }
 
