@@ -6,12 +6,12 @@ namespace KMLaravel\QueryHelper\Classes;
 use \Illuminate\Support\Str;
 
 /**
- * Class JoinerHelper
+ * Class JoinHelper
  *
  * @author karam mustafa
  * @package KMLaravel\QueryHelper\Classes
  */
-class JoinerHelper extends BaseHelper
+class JoinHelper extends BaseHelper
 {
 
     /**
@@ -76,14 +76,14 @@ class JoinerHelper extends BaseHelper
     /**
      * this function is take the second parameter and match the relation field with the first table.
      *
-     * @param string $firstTable
-     * @param string $secondTable
+     * @param  string  $firstTable
+     * @param  string  $secondTable
      *
      * @return string
      * @author karam mustafa
      *
-     * @example if we have relaton between users and posts
-     * this function will return the follwoing 'posts.user_id'
+     * @example if we have relation between users and posts
+     * this function will return the following 'posts.user_id'
      */
     public function resolveRelation($firstTable, $secondTable)
     {
@@ -91,17 +91,14 @@ class JoinerHelper extends BaseHelper
     }
 
     /**
-     * descr
+     * fast append the parameters to prepare join queries, instead of write all functions.
      *
      * @param  string  $mainTableName
      * @param  array  $selection
      * @param  array  $tables
      * @param  array  $joinTypes
      *
-     * @return void
-     *
-     * @example if we have relaton between users and posts
-     * this function will return the follwoing 'posts.user_id'
+     * @return mixed
      */
     public function fastJoin($mainTableName, $selection, $tables, $joinTypes)
     {
@@ -114,28 +111,43 @@ class JoinerHelper extends BaseHelper
     }
 
     /**
-     * build the join statemenet
+     * build the join statement
      *
+     * @return void
      * @author karam mustafa
-     * example if we have [users,posts,comments] tables are inside tables property,
-     * so this function will build the following query
-     * 'JOIN users on users.id = posts.user_id JOIN posts on posts.id = comments.post_id'
      */
     private function buildStatement()
     {
-        foreach ($this->getTables() as $index => $table) {
+        foreach ($this->getTables() as $index => $tables) {
+            $this->addJoin($tables);
+        }
+    }
+
+    /**
+     * description
+     *
+     * @param  array  $tables
+     *
+     * @return void
+     * @author karam mustafa
+     * @example if we have [users,posts,comments] tables are inside tables property,
+     * so this function will build the following query
+     * 'JOIN users on users.id = posts.user_id JOIN posts on posts.id = comments.post_id'
+     */
+    private function addJoin($tables)
+    {
+        $tables = explode(':', $tables);
+
+        foreach ($tables as $index => $table) {
             if ($index > 0) {
-
-                $lastTable = $this->getTables()[$index - 1];
-
                 $this->setQuery(sprintf(
                     "%s %s %s on %s.%s = %s ",
                     $this->getQuery(),
-                    $this->getJoinType()[$index - 1] ?? $this->getJoinType()[0],
-                    $table,
-                    $lastTable,
+                    $this->getJoinType()[$index] ?? $this->getJoinType()[0],
+                    $tables[$index - 1],
+                    $tables[$index - 1],
                     $this->getField(),
-                    $this->resolveRelation($lastTable, $table)
+                    $this->resolveRelation($tables[$index - 1], $table)
                 ));
             }
         }
