@@ -4,11 +4,51 @@
 namespace KMLaravel\QueryHelper\Classes;
 
 
+/**
+ * Class QueryHelper
+ *
+ * @author karam mustafa
+ * @package KMLaravel\QueryHelper\Classes
+ */
 class QueryHelper extends BaseHelper
 {
-    
+    /**
+     *
+     * @author karam mustafa
+     * @var \KMLaravel\QueryHelper\Classes\UpdateHelper
+     */
+    private $updateHelper;
+    /**
+     *
+     * @author karam mustafa
+     * @var \KMLaravel\QueryHelper\Classes\DeleteHelper
+     */
+    private $deleteHelper;
+    /**
+     *
+     * @author karam mustafa
+     * @var \KMLaravel\QueryHelper\Classes\InsertHelper
+     */
+    private $insertHelper;
+    /**
+     *
+     * @author karam mustafa
+     * @var \KMLaravel\QueryHelper\Classes\JoinHelper
+     */
+    private $joinHelper;
+
+    /**
+     * QueryHelper constructor.
+     *
+     */
     public function __construct()
     {
+        $this->initContainer(
+            new UpdateHelper,
+            new DeleteHelper,
+            new InsertHelper,
+            new JoinHelper
+        );
         $this->setAllowedWhereInQueryNumber(config('query_helper.allowed_chunk_number'));
     }
 
@@ -18,30 +58,20 @@ class QueryHelper extends BaseHelper
      * @return UpdateHelper
      * @author karam mustsfa
      */
-    public static function updateInOneQueryInstance()
+    public function updateInstance()
     {
-        return new UpdateHelper();
+        return $this->updateHelper;
     }
 
-    /**
-     * this function return an instance of update helper class.
-     *
-     * @return UpdateHelper
-     * @author karam mustsfa
-     */
-    public static function updateInstance()
-    {
-        return new UpdateHelper();
-    }
     /**
      * this function return an instance of insert helper class.
      *
      * @return InsertHelper
      * @author karam mustsfa
      */
-    public static function insertInstance()
+    public function insertInstance()
     {
-        return new InsertHelper();
+        return $this->insertHelper;
     }
 
     /**
@@ -50,19 +80,39 @@ class QueryHelper extends BaseHelper
      * @return DeleteHelper
      * @author karam mustsfa
      */
-    public static function deleteInstance()
+    public function deleteInstance()
     {
-        return new DeleteHelper();
+        return $this->deleteHelper;
     }
+
     /**
      * this function return an instance of join helper class.
      *
      * @return JoinerHelper
      * @author karam mustsfa
      */
-    public static function joinerInstance()
+    public function joinInstance()
     {
-        return new JoinerHelper();
+        return $this->joinHelper;
     }
-    
+
+    /**
+     * resolve contsrtuct injection if there is any value null.
+     *
+     * @param  \KMLaravel\QueryHelper\Classes\UpdateHelper  $updateHelper
+     * @param  \KMLaravel\QueryHelper\Classes\DeleteHelper  $deleteHelper
+     * @param  \KMLaravel\QueryHelper\Classes\InsertHelper  $insertHelper
+     * @param  \KMLaravel\QueryHelper\Classes\JoinHelper  $joinHelper
+     *
+     * @return JoinerHelper
+     * @author karam mustsfa
+     */
+    public function initContainer($updateHelper, $deleteHelper, $insertHelper, $joinHelper)
+    {
+        $this->updateHelper = $updateHelper;
+        $this->deleteHelper = $deleteHelper;
+        $this->insertHelper = $insertHelper;
+        $this->joinHelper = $joinHelper;
+    }
+
 }
