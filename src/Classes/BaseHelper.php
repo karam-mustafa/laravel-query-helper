@@ -11,27 +11,50 @@ abstract class BaseHelper
     /**
      * @var string
      */
-    public $tableName = '';
+    private $tableName = '';
     /**
      * @var array
      */
-    public $tables = [];
+    private $tables = [];
     /**
      * @var mixed
      */
-    public $ids;
+    private $ids;
     /**
      * @var mixed
      */
-    public $values;
+    private $values;
     /**
      * @var string
      */
-    public $query;
+    private $query;
     /**
      * @var string
      */
-    public $field = 'id';
+    private $field = 'id';
+    /**
+     * @var int
+     */
+    private $allowedWhereInQueryNumber = 0;
+
+    /**
+     * @return int
+     */
+    protected function getAllowedWhereInQueryNumber()
+    {
+        return $this->allowedWhereInQueryNumber;
+    }
+
+    /**
+     * @param  int  $allowedWhereInQueryNumber
+     *
+     * @return  BaseHelper
+     */
+    public function setAllowedWhereInQueryNumber($allowedWhereInQueryNumber)
+    {
+        $this->allowedWhereInQueryNumber = $allowedWhereInQueryNumber;
+        return $this;
+    }
 
     /**
      * @var boolean
@@ -42,7 +65,7 @@ abstract class BaseHelper
      * @return bool
      * @author karam mustaf
      */
-    public function isSelectStatus()
+    protected function isSelectStatus()
     {
         return $this->isSelectStatus;
     }
@@ -54,7 +77,7 @@ abstract class BaseHelper
      * @return BaseHelper
      * @author karam mustaf
      */
-    public function setIsSelectStatus($isSelectStatus = true)
+    protected function setIsSelectStatus($isSelectStatus = true)
     {
         $this->isSelectStatus = $isSelectStatus;
 
@@ -82,7 +105,7 @@ abstract class BaseHelper
      * @return string
      * @author karam mustaf
      */
-    public function getSelection($implode = true)
+    protected function getSelection($implode = true)
     {
         if ($implode) {
             return implode(',', $this->selection);
@@ -93,7 +116,7 @@ abstract class BaseHelper
     /**
      * @return string
      */
-    public function getField()
+    protected function getField()
     {
         return $this->field;
     }
@@ -114,7 +137,7 @@ abstract class BaseHelper
     /**
      * @return array
      */
-    public function getTables()
+    protected function getTables()
     {
         return $this->tables;
     }
@@ -148,7 +171,7 @@ abstract class BaseHelper
     /**
      * @param  string  $query
      */
-    public function setQuery($query)
+    protected function setQuery($query)
     {
         $this->query = $query;
     }
@@ -157,7 +180,7 @@ abstract class BaseHelper
      * @return array
      * @author karam mustafa
      */
-    public function getValues()
+    protected function getValues()
     {
         return $this->values;
     }
@@ -177,7 +200,7 @@ abstract class BaseHelper
     /**
      * @return string
      */
-    public function getTableName()
+    protected function getTableName()
     {
         return $this->tableName;
     }
@@ -198,7 +221,7 @@ abstract class BaseHelper
     /**
      * @return array
      */
-    public function getIds()
+    protected function getIds()
     {
         return $this->ids;
     }
@@ -216,10 +239,6 @@ abstract class BaseHelper
 
     }
 
-    /**
-     * @var int
-     */
-    public $allowedWhereInQueryNumber = 0;
     /**
      * @var array
      */
@@ -242,25 +261,6 @@ abstract class BaseHelper
     {
         $this->savedItems = array_merge($this->savedItems, $savedItems);
 
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAllowedWhereInQueryNumber()
-    {
-        return $this->allowedWhereInQueryNumber;
-    }
-
-    /**
-     * @param  int  $allowedWhereInQueryNumber
-     *
-     * @return  BaseHelper
-     */
-    public function setAllowedWhereInQueryNumber($allowedWhereInQueryNumber)
-    {
-        $this->allowedWhereInQueryNumber = $allowedWhereInQueryNumber;
         return $this;
     }
 
@@ -302,15 +302,16 @@ abstract class BaseHelper
     public function executeAll($callback = null)
     {
         try {
-
+            // if the user pass a callback, then execute this callback and inject the query on it.
             if (isset($callback)) {
                 return $callback($this->getQuery());
             }
-
+            // check if we are now in selection status
+            // so we will execute this selection query.
             if ($this->isSelectStatus()) {
                 return DB::select(DB::raw($this->getQuery()));
             }
-
+            // if we are not, then execute what evere this statement.
             DB::statement($this->getQuery());
 
             return $this;
@@ -337,7 +338,6 @@ abstract class BaseHelper
         $this->setSelection([]);
         $this->setTables([]);
         $this->setTableName('');
-        $this->setIsSelectStatus(false);
 
         return $this;
     }
@@ -350,7 +350,7 @@ abstract class BaseHelper
      * @return bool
      * @author karam mustafa
      */
-    public function checkIfInteger($index)
+    protected function checkIfInteger($index)
     {
         return is_int($this->getValues()[$index])
             || (is_float($this->getValues()[$index])
@@ -366,10 +366,21 @@ abstract class BaseHelper
      * @return void
      * @author karam mustafa
      */
-    public function loopThrough($arr, $callback)
+    protected function loopThrough($arr, $callback)
     {
         foreach ($arr as $key => $value) {
             $callback($key, $value);
         }
+    }
+
+    /**
+     * return the saved items.
+     *
+     * @return array
+     * @author karam mustafa
+     */
+    public function done()
+    {
+        return $this->getSavedItems();
     }
 }
