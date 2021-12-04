@@ -88,7 +88,7 @@ class QueryHelper extends BaseHelper
     /**
      * this function return an instance of join helper class.
      *
-     * @return JoinerHelper
+     * @return JoinHelper
      * @author karam mustsfa
      */
     public function joinInstance()
@@ -104,7 +104,7 @@ class QueryHelper extends BaseHelper
      * @param  \KMLaravel\QueryHelper\Classes\InsertHelper  $insertHelper
      * @param  \KMLaravel\QueryHelper\Classes\JoinHelper  $joinHelper
      *
-     * @return JoinerHelper
+     * @return void
      * @author karam mustsfa
      */
     public function initContainer($updateHelper, $deleteHelper, $insertHelper, $joinHelper)
