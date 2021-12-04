@@ -51,7 +51,7 @@ abstract class BaseHelper
      * @param  bool  $isSelectStatus
      *
      *
-     * @return \KMLaravel\QueryHelper\Classes\BaseHelper
+     * @return BaseHelper
      * @author karam mustaf
      */
     public function setIsSelectStatus($isSelectStatus = true)
@@ -64,7 +64,7 @@ abstract class BaseHelper
     /**
      * @param  array  $selection
      *
-     * @return \KMLaravel\QueryHelper\Classes\BaseHelper
+     * @return BaseHelper
      * @author karam mustaf
      */
     public function setSelection($selection)
@@ -101,7 +101,7 @@ abstract class BaseHelper
     /**
      * @param  string  $field
      *
-     * @return \KMLaravel\QueryHelper\Classes\BaseHelper
+     * @return BaseHelper
      * @author karam mustafa
      */
     public function setField($field)
@@ -122,7 +122,7 @@ abstract class BaseHelper
     /**
      * @param $tables
      *
-     * @return \KMLaravel\QueryHelper\Classes\BaseHelper
+     * @return BaseHelper
      */
     public function setTables($tables)
     {
@@ -185,7 +185,7 @@ abstract class BaseHelper
     /**
      * @param  string  $tableName
      *
-     * @return \KMLaravel\QueryHelper\Classes\BaseHelper
+     * @return BaseHelper
      * @author karam mustafa
      */
     public function setTableName($tableName)
@@ -206,7 +206,7 @@ abstract class BaseHelper
     /**
      * @param  array  $ids
      *
-     * @return \KMLaravel\QueryHelper\Classes\BaseHelper
+     * @return BaseHelper
      * @author karam mustafa
      */
     public function setIds($ids)
@@ -236,7 +236,7 @@ abstract class BaseHelper
     /**
      * @param  array  $savedItems
      *
-     * @return \KMLaravel\QueryHelper\Classes\BaseHelper
+     * @return BaseHelper
      */
     public function setSavedItems($savedItems)
     {
@@ -255,7 +255,7 @@ abstract class BaseHelper
     /**
      * @param  int  $allowedWhereInQueryNumber
      *
-     * @return  \KMLaravel\QueryHelper\Classes\BaseHelper
+     * @return  BaseHelper
      */
     public function setAllowedWhereInQueryNumber($allowedWhereInQueryNumber)
     {
@@ -294,7 +294,7 @@ abstract class BaseHelper
      *
      * @param  callable|null  $callback
      *
-     * @return \KMLaravel\QueryHelper\Classes\BaseHelper
+     * @return BaseHelper
      * @throws \Exception
      * @author karam mustafa
      */
@@ -321,7 +321,7 @@ abstract class BaseHelper
     /**
      * clear all data.
      *
-     * @return \KMLaravel\QueryHelper\Classes\BaseHelper
+     * @return BaseHelper
      * @author karam mustafa
      */
     public function clearAll()
@@ -330,6 +330,11 @@ abstract class BaseHelper
         $this->setCases([]);
         $this->setValues([]);
         $this->setQuery('');
+        $this->setField('');
+        $this->setSelection([]);
+        $this->setSavedItems([]);
+        $this->setTables([]);
+        $this->setIsSelectStatus(false);
 
         return $this;
     }
