@@ -97,7 +97,7 @@ class QueryHelper extends BaseHelper
     }
 
     /**
-     * resolve contsrtuct injection if there is any value null.
+     * resolve construct injection if there is any value null.
      *
      * @param  \KMLaravel\QueryHelper\Classes\UpdateHelper  $updateHelper
      * @param  \KMLaravel\QueryHelper\Classes\DeleteHelper  $deleteHelper

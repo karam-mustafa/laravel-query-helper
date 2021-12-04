@@ -23,7 +23,7 @@ class UpdateHelper extends BaseHelper
     /**
      * @param  mixed  $cases
      *
-     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
+     * @return UpdateHelper|BaseHelper
      * @author karam mustafa
      */
     public function setCases($cases)
@@ -37,7 +37,7 @@ class UpdateHelper extends BaseHelper
      *
      * @param  string  $key
      *
-     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
+     * @return UpdateHelper|BaseHelper
      * @throws \Exception
      * @author karam mustafa
      */
@@ -60,7 +60,7 @@ class UpdateHelper extends BaseHelper
     /**
      * build query statement
      *
-     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
+     * @return UpdateHelper|BaseHelper
      * @throws \Exception
      * @author karam mustafa
      */
@@ -87,7 +87,7 @@ class UpdateHelper extends BaseHelper
     /**
      * this function will build [when id = ? then ?] sql query statement.
      *
-     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
+     * @return UpdateHelper|BaseHelper
      * @author karam mustafa
      */
     public function bindIdsWithValues()
@@ -114,7 +114,7 @@ class UpdateHelper extends BaseHelper
      * @param $vales
      * @param $column
      *
-     * @return \KMLaravel\QueryHelper\Classes\UpdateHelper
+     * @return UpdateHelper|BaseHelper
      * @author karam mustafa
      */
     public function fastUpdate($tableName, $ids, $vales, $column)
