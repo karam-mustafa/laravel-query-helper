@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \KMLaravel\QueryHelper\Classes\DeleteHelper deleteInstance()
  * @method static \KMLaravel\QueryHelper\Classes\UpdateHelper updateInstance()
  * @method static \KMLaravel\QueryHelper\Classes\InsertHelper insertInstance()
- * @method static \KMLaravel\QueryHelper\Classes\JoinerHelper joinerInstance()
+ * @method static \KMLaravel\QueryHelper\Classes\JoinHelper joinInstance()
  */
 class QueryHelperFacade extends Facade
 {
