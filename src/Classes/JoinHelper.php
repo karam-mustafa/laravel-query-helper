@@ -19,7 +19,13 @@ class JoinHelper extends BaseHelper
      * @author karam mustafa
      * @var array
      */
-    private $joinType = [];
+    private $joinType = 'JOIN';
+    /**
+     *
+     * @author karam mustafa
+     * @var string
+     */
+    private $savedKey = 'joinsResults';
 
     /**
      *
@@ -38,14 +44,14 @@ class JoinHelper extends BaseHelper
     }
 
     /**
-     * @param  array  $joinType
+     * @param  string  $joinType
      *
      * @return JoinHelper
      * @author karam mustaf
      */
     public function setJoinType($joinType)
     {
-        $this->joinType = array_merge($this->joinType, $joinType);
+        $this->joinType = $joinType;
 
         return $this;
     }
@@ -56,11 +62,10 @@ class JoinHelper extends BaseHelper
      *
      * @return JoinHelper
      * @author karam mustafa
-     *
      */
     public function buildJoin()
     {
-        $this->buildStatement();
+//        $this->buildStatement();
 
         $this->setQuery(
             sprintf("SELECT %s FROM %s %s",
@@ -70,6 +75,7 @@ class JoinHelper extends BaseHelper
             )
         );
         $this->setIsSelectStatus();
+
         return $this;
     }
 
@@ -95,25 +101,36 @@ class JoinHelper extends BaseHelper
      *
      * @param  string  $mainTableName
      * @param  array  $selection
-     * @param  array  $tables
+     * @param  array|string  $tables
      * @param  array  $joinTypes
      *
      * @return mixed
      */
-    public function fastJoin($mainTableName, $selection, $tables, $joinTypes)
+    public function fastJoin($mainTableName, $selection, $tables, $joinTypes = ['JOIN'])
     {
-        return $this->setTableName($mainTableName)
-            ->setTables($tables)
-            ->setJoinType($joinTypes)
-            ->setSelection($selection)
-            ->buildJoin()
-            ->executeAll();
+        $tables = !is_array($tables) ? [$tables] : $tables;
+
+        $this->loopThrough($tables, function ($index, $table) use ($joinTypes, $selection, $mainTableName) {
+
+            $this->setSavedItems([
+
+                $this->savedKey => $this->setTableName($mainTableName)
+                    ->addJoin($table)
+                    ->setSelection($selection)
+                    ->setJoinType($joinTypes)
+                    ->buildJoin()
+                    ->executeAll()
+            ]);
+
+        });
+
+        return $this->getSavedItems();
     }
 
     /**
      * build the join statement
      *
-     * @return void
+     * @return JoinHelper
      * @author karam mustafa
      */
     private function buildStatement()
@@ -121,35 +138,33 @@ class JoinHelper extends BaseHelper
         foreach ($this->getTables() as $index => $tables) {
             $this->addJoin($tables);
         }
+
+        return $this;
     }
 
     /**
-     * description
+     * build the join query between tow tables.
      *
-     * @param  array  $tables
+     * @param  string  $table
      *
-     * @return void
+     * @return JoinHelper
      * @author karam mustafa
      * @example if we have [users,posts,comments] tables are inside tables property,
      * so this function will build the following query
      * 'JOIN users on users.id = posts.user_id JOIN posts on posts.id = comments.post_id'
      */
-    private function addJoin($tables)
+    public function addJoin($table)
     {
-        $tables = explode(':', $tables);
+        $this->setQuery(sprintf(
+            "%s %s %s on %s.%s = %s ",
+            $this->getQuery(),
+            $this->getJoinType(),
+            $table,
+            $table,
+            $this->getField(),
+            $this->resolveRelation($table, $this->getTableName())
+        ));
 
-        foreach ($tables as $index => $table) {
-            if ($index > 0) {
-                $this->setQuery(sprintf(
-                    "%s %s %s on %s.%s = %s ",
-                    $this->getQuery(),
-                    $this->getJoinType()[$index] ?? $this->getJoinType()[0],
-                    $tables[$index - 1],
-                    $tables[$index - 1],
-                    $this->getField(),
-                    $this->resolveRelation($tables[$index - 1], $table)
-                ));
-            }
-        }
+        return $this;
     }
 }

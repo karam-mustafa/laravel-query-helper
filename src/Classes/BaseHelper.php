@@ -240,7 +240,8 @@ abstract class BaseHelper
      */
     public function setSavedItems($savedItems)
     {
-        $this->savedItems = $savedItems;
+        $this->savedItems = array_merge($this->savedItems, $savedItems);
+
         return $this;
     }
 
@@ -354,5 +355,21 @@ abstract class BaseHelper
         return is_int($this->getValues()[$index])
             || (is_float($this->getValues()[$index])
                 && floatval($this->getValues()[$index]));
+    }
+
+    /**
+     * loop through specific array and each iteration will execute by a callback.
+     *
+     * @param  array  $arr
+     * @param  callback  $callback
+     *
+     * @return void
+     * @author karam mustafa
+     */
+    public function loopThrough($arr, $callback)
+    {
+        foreach ($arr as $key => $value) {
+            $callback($key, $value);
+        }
     }
 }
