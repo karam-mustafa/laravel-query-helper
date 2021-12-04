@@ -319,7 +319,10 @@ abstract class BaseHelper
     }
 
     /**
-     * clear all data.
+     * clear all inserted data in class properties.
+     * this function igore the savedDataItems property,
+     * because this package designed to be a strong declarative concept,
+     * and we want a node to store all the work on.
      *
      * @return BaseHelper
      * @author karam mustafa
@@ -332,7 +335,6 @@ abstract class BaseHelper
         $this->setQuery('');
         $this->setField('');
         $this->setSelection([]);
-        $this->setSavedItems([]);
         $this->setTables([]);
         $this->setIsSelectStatus(false);
 
