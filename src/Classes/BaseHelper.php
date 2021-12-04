@@ -331,12 +331,12 @@ abstract class BaseHelper
     public function clearAll()
     {
         $this->setIds([]);
-        $this->setCases([]);
         $this->setValues([]);
         $this->setQuery('');
         $this->setField('');
         $this->setSelection([]);
         $this->setTables([]);
+        $this->setTableName('');
         $this->setIsSelectStatus(false);
 
         return $this;
