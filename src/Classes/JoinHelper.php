@@ -40,7 +40,7 @@ class JoinHelper extends BaseHelper
     /**
      * @param  array  $joinType
      *
-     * @return \KMLaravel\QueryHelper\Classes\JoinerHelper
+     * @return JoinHelper
      * @author karam mustaf
      */
     public function setJoinType($joinType)
@@ -54,11 +54,11 @@ class JoinHelper extends BaseHelper
      * get the all inserted tables in tables property,
      * and map these tables, each table will join with the next table in the tables array.
      *
-     * @return $this
+     * @return JoinHelper
      * @author karam mustafa
      *
      */
-    public function innerJoin()
+    public function buildJoin()
     {
         $this->buildStatement();
 
@@ -106,7 +106,7 @@ class JoinHelper extends BaseHelper
             ->setTables($tables)
             ->setJoinType($joinTypes)
             ->setSelection($selection)
-            ->innerJoin()
+            ->buildJoin()
             ->executeAll();
     }
 
