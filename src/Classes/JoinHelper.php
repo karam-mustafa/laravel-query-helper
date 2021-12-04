@@ -65,8 +65,6 @@ class JoinHelper extends BaseHelper
      */
     public function buildJoin()
     {
-//        $this->buildStatement();
-
         $this->setQuery(
             sprintf("SELECT %s FROM %s %s",
                 $this->getSelection(),
@@ -104,27 +102,20 @@ class JoinHelper extends BaseHelper
      * @param  array|string  $tables
      * @param  array  $joinTypes
      *
-     * @return mixed
+     * @return JoinHelper
      */
-    public function fastJoin($mainTableName, $selection, $tables, $joinTypes = ['JOIN'])
+    public function fastJoin($mainTableName, $selection, $tables, $joinTypes = 'JOIN')
     {
         $tables = !is_array($tables) ? [$tables] : $tables;
+        // this is a important step if the user has been execute multi fastJoin
+        // because the clearAll function clear the default field.
+        $this->setField('id');
+        // build the join query
+        $this->buildFastJoin($mainTableName, $selection, $tables, $joinTypes);
+        // clear all paramteres, except the saved items.
+        $this->clearAll();
 
-        $this->loopThrough($tables, function ($index, $table) use ($joinTypes, $selection, $mainTableName) {
-
-            $this->setSavedItems([
-
-                $this->savedKey => $this->setTableName($mainTableName)
-                    ->addJoin($table)
-                    ->setSelection($selection)
-                    ->setJoinType($joinTypes)
-                    ->buildJoin()
-                    ->executeAll()
-            ]);
-
-        });
-
-        return $this->getSavedItems();
+        return $this;
     }
 
     /**
@@ -149,9 +140,11 @@ class JoinHelper extends BaseHelper
      *
      * @return JoinHelper
      * @author karam mustafa
-     * @example if we have [users,posts,comments] tables are inside tables property,
+     * @example if we have main table that inserted by the setTableName function
+     * and lets say that table is users
+     * and we want to add join with posts table
      * so this function will build the following query
-     * 'JOIN users on users.id = posts.user_id JOIN posts on posts.id = comments.post_id'
+     * 'JOIN posts on posts.post_id = users.id'
      */
     public function addJoin($table)
     {
@@ -160,11 +153,41 @@ class JoinHelper extends BaseHelper
             $this->getQuery(),
             $this->getJoinType(),
             $table,
-            $table,
+            $this->getTableName(),
             $this->getField(),
-            $this->resolveRelation($table, $this->getTableName())
+            $this->resolveRelation($this->getTableName(), $table)
         ));
 
         return $this;
+    }
+
+    /**
+     * build join statement.
+     *
+     * @param $mainTableName
+     * @param $selection
+     * @param $tables
+     * @param $joinTypes
+     *
+     * @author karam mustafa
+     */
+    private function buildFastJoin($mainTableName, $selection, $tables, $joinTypes): void
+    {
+        $this->loopThrough($tables, function ($index, $table) use ($joinTypes, $selection, $mainTableName) {
+            // set random key with custom convension for a saved item.
+            $savedKey = $mainTableName.'_'.Str::random('4');
+            // push the query result on saved items property
+            // this make us can handle multi query statment
+            $this->setSavedItems([
+
+                $savedKey => $this->setTableName($mainTableName)
+                    ->addJoin($table)
+                    ->setSelection($selection)
+                    ->setJoinType($joinTypes)
+                    ->buildJoin()
+                    ->executeAll()
+            ]);
+
+        });
     }
 }
