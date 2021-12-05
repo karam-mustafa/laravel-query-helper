@@ -65,15 +65,20 @@ class JoinHelper extends BaseHelper
      */
     public function buildJoin()
     {
+        // set the select query.
         $this->setQuery(
             sprintf("SELECT %s FROM %s %s",
                 $this->getSelection(),
                 $this->getTableName(),
                 $this->getQuery()
-            )
-        );
+            ));
+        // change the selection status to isSelectStatus,
+        // so we can execute this query as a raw statement.
         $this->setIsSelectStatus();
-
+        // save this result in savedItems Property
+        $this->setSavedItems([
+            $this->savedKey => $this->executeAll()
+        ]);
         return $this;
     }
 
