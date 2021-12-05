@@ -24,24 +24,24 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
-    'name' => 'karam-mustafa/laravel-query-helper',
+    'reference' => '7b8fbe8e3ffd637d554cb7efc1df095903778c5f',
+    'name' => 'kmlaravel/laravel-query-helper',
   ),
   'versions' => 
   array (
-    'karam-mustafa/laravel-query-helper' => 
+    'kmlaravel/laravel-query-helper' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '7b8fbe8e3ffd637d554cb7efc1df095903778c5f',
     ),
   ),
 );
