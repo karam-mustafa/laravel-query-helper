@@ -15,25 +15,25 @@ class QueryHelper extends BaseHelper
     /**
      *
      * @author karam mustafa
-     * @var \KMLaravel\QueryHelper\Classes\UpdateHelper
+     * @var UpdateHelper
      */
     private $updateHelper;
     /**
      *
      * @author karam mustafa
-     * @var \KMLaravel\QueryHelper\Classes\DeleteHelper
+     * @var DeleteHelper
      */
     private $deleteHelper;
     /**
      *
      * @author karam mustafa
-     * @var \KMLaravel\QueryHelper\Classes\InsertHelper
+     * @var InsertHelper
      */
     private $insertHelper;
     /**
      *
      * @author karam mustafa
-     * @var \KMLaravel\QueryHelper\Classes\JoinHelper
+     * @var JoinHelper
      */
     private $joinHelper;
 
@@ -99,10 +99,10 @@ class QueryHelper extends BaseHelper
     /**
      * resolve construct injection if there is any value null.
      *
-     * @param  \KMLaravel\QueryHelper\Classes\UpdateHelper  $updateHelper
-     * @param  \KMLaravel\QueryHelper\Classes\DeleteHelper  $deleteHelper
-     * @param  \KMLaravel\QueryHelper\Classes\InsertHelper  $insertHelper
-     * @param  \KMLaravel\QueryHelper\Classes\JoinHelper  $joinHelper
+     * @param  UpdateHelper  $updateHelper
+     * @param  DeleteHelper  $deleteHelper
+     * @param  InsertHelper  $insertHelper
+     * @param  JoinHelper  $joinHelper
      *
      * @return void
      * @author karam mustsfa
