@@ -9,6 +9,9 @@ We provide some function we think that we can implement joins more faster and ea
         // second parameter is the selection you want from the database.
         // third parameter is table to join with.
         ->fastJoin('users', ['users.id'], 'posts')
+        // you can add more joins.
+        // ->fastJoin('other_main_table', ['id'], 'table_to_join')
+        // ->fastJoin('other_main_table', ['id'], 'table_to_join')
         // retrieve the query result 
         ->done();
 
