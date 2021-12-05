@@ -15,7 +15,7 @@ abstract class BaseHelper
     /**
      * @var array
      */
-    private $tables = [];
+    protected $tables = [];
     /**
      * @var mixed
      */
