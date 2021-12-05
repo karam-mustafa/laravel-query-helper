@@ -60,10 +60,13 @@ class JoinHelper extends BaseHelper
      * get the all inserted tables in tables property,
      * and map these tables, each table will join with the next table in the tables array.
      *
+     * @param  bool  $saveItems
+     *
      * @return JoinHelper
+     * @throws \Exception
      * @author karam mustafa
      */
-    public function buildJoin()
+    public function buildJoin($saveItems = true)
     {
         // set the select query.
         $this->setQuery(
@@ -75,10 +78,14 @@ class JoinHelper extends BaseHelper
         // change the selection status to isSelectStatus,
         // so we can execute this query as a raw statement.
         $this->setIsSelectStatus();
-        // save this result in savedItems Property
-        $this->setSavedItems([
-            $this->savedKey => $this->executeAll()
-        ]);
+        // check if we want to execute the query and save the results.
+        if ($saveItems) {
+            // save this result in savedItems Property
+            $this->setSavedItems([
+                $this->savedKey => $this->executeAll()
+            ]);
+        }
+
         return $this;
     }
 
@@ -119,7 +126,7 @@ class JoinHelper extends BaseHelper
         $this->buildFastJoin($mainTableName, $selection, $tables, $joinTypes);
         // clear all parameter's, except the saved items.
         $this->clearAll();
-
+        
         return $this;
     }
 
@@ -180,7 +187,7 @@ class JoinHelper extends BaseHelper
                     ->addJoin($table)
                     ->setSelection($selection)
                     ->setJoinType($joinTypes)
-                    ->buildJoin()
+                    ->buildJoin(false)
                     ->executeAll()
             ]);
 
