@@ -57,7 +57,7 @@ So the query helper will help you optimize this process, see the following expla
     // if you want to set your cases in query.
     $cases = implode(' ', $cases);
 
-    \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInstance()
+    QueryHelperFacade::updateInstance()
             ->setIds($ids)
             ->setValues($values)
             ->setTableName($tableName) // change this parameter value to your database table name.
@@ -70,7 +70,7 @@ So the query helper will help you optimize this process, see the following expla
 What if you want to put your own Cases ?  **okay we support that**.
 ```php
 
-    $query = \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInstance()
+    $query = QueryHelperFacade::updateInstance()
             ->setIds($ids)
             ->setCasues($cases)
             ->setTableName($tableName) // change this parameter value to your database table name.
@@ -80,7 +80,7 @@ What if you want to put your own Cases ?  **okay we support that**.
 What if you want dump the query which will execute ?  **okay we support that**.
 ```php
 
-    $query = \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInstance()
+    $query = QueryHelperFacade::updateInstance()
             ->setIds($ids)
             ->setValues($values)
             ->setTableName($tableName) // change this parameter value to your database table name.
@@ -93,7 +93,7 @@ What if you want dump the query which will execute ?  **okay we support that**.
 What if you want to reduce these lines in one line ?  **okay we support that**.
 ```php
 
-    $query = \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInstance()
+    $query = QueryHelperFacade::updateInstance()
             ->fastUpdate($tableName , $ids , $values , $columnToUpdate);
     dd($query);
 

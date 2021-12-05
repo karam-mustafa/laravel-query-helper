@@ -11,7 +11,7 @@ so we have to chunk your large query to smaller pieces, and we can do that for y
     ['name' => 'example 4'],
     ...
     ];   
-    \KMLaravel\QueryHelper\Facade\QueryHelperFacade::updateInstance()
+    QueryHelperFacade::updateInstance()
         ->setAllowedWhereInQueryNumber(2000) // chunk size and you can update the default value from query_helper.php config file.
         ->checkIfQueryAllowed($users , function ($data){
             User::insert($data);
