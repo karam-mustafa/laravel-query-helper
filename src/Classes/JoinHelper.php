@@ -100,7 +100,7 @@ class JoinHelper extends BaseHelper
      * @param  string  $mainTableName
      * @param  array  $selection
      * @param  array|string  $tables
-     * @param  array  $joinTypes
+     * @param  string  $joinTypes
      *
      * @return JoinHelper
      */
@@ -112,23 +112,8 @@ class JoinHelper extends BaseHelper
         $this->setField('id');
         // build the join query
         $this->buildFastJoin($mainTableName, $selection, $tables, $joinTypes);
-        // clear all paramteres, except the saved items.
+        // clear all parameter's, except the saved items.
         $this->clearAll();
-
-        return $this;
-    }
-
-    /**
-     * build the join statement
-     *
-     * @return JoinHelper
-     * @author karam mustafa
-     */
-    private function buildStatement()
-    {
-        foreach ($this->getTables() as $index => $tables) {
-            $this->addJoin($tables);
-        }
 
         return $this;
     }
@@ -150,11 +135,17 @@ class JoinHelper extends BaseHelper
     {
         $this->setQuery(sprintf(
             "%s %s %s on %s.%s = %s ",
+            // get the prevoues query
             $this->getQuery(),
+            // get the inserted join type
             $this->getJoinType(),
+            // set the selection table
             $table,
+            // get the main table
             $this->getTableName(),
+            // get the relation filed, id for an example
             $this->getField(),
+            // build the relation
             $this->resolveRelation($this->getTableName(), $table)
         ));
 
@@ -174,10 +165,10 @@ class JoinHelper extends BaseHelper
     private function buildFastJoin($mainTableName, $selection, $tables, $joinTypes): void
     {
         $this->loopThrough($tables, function ($index, $table) use ($joinTypes, $selection, $mainTableName) {
-            // set random key with custom convension for a saved item.
+            // set random key with custom convention for a saved item.
             $savedKey = $mainTableName.'_'.Str::random('4');
             // push the query result on saved items property
-            // this make us can handle multi query statment
+            // this make us can handle multi query statement
             $this->setSavedItems([
 
                 $savedKey => $this->setTableName($mainTableName)
