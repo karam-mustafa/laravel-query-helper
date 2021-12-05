@@ -12,13 +12,13 @@ We provide some function we think that we can implement joins more faster and ea
         // retrieve the query result 
         ->done();
 
-    // if you want to specify all the options and function 
+    // if you want to specify all the options and functions,
     // join helper class has a strong declarative process,
     // and this process make you chose what you want to build.
     QueryHelperFacade::joinInstance()
         // set the main table that we will select.
         ->setTableName('users')
-        // set the join type, the default value is 'JOIn'  .
+        // set the join type, the default value is 'JOIN'.
         ->setJoinType('LEFT JOIN')
         // set the select statement, the default value is ['id'].
         ->setSelection(['users.id'])
