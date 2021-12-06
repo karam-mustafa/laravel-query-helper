@@ -147,7 +147,7 @@ class JoinHelper extends BaseHelper
     {
         $this->setQuery(sprintf(
             "%s %s %s on %s.%s = %s ",
-            // get the prevoues query
+            // get the previous query
             $this->getQuery(),
             // get the inserted join type
             $this->getJoinType(),
