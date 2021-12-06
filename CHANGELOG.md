@@ -1,5 +1,10 @@
 #Changelog
 
+## v1.3.1
+* Fix multi fast join
+* Improve code explanations
+
+
 ## v1.3.0
 * Delete all the database tables feature in delete helper.
 * Add Join Helper Class with his features.
