@@ -70,10 +70,10 @@ class DeleteHelper extends BaseHelper
     {
         $this->getAllTablesFromDatabase();
 
-        $colname = 'Tables_in_'.env('DB_DATABASE');
+        $columnName = 'Tables_in_'.env('DB_DATABASE');
 
         foreach ($this->getSavedItems() as $table) {
-            $this->setTables($table->$colname);
+            $this->setTables($table->$columnName);
         }
 
         $this->dropMultiTables();

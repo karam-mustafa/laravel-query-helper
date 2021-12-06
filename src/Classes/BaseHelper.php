@@ -149,10 +149,11 @@ abstract class BaseHelper
      */
     public function setTables($tables)
     {
+        // check if the parameter is array, then we will merge the parameters
         if (is_array($tables)) {
             $this->tables = array_merge($this->tables, $tables);
         }
-
+        // if the parameter is string, then push this table name to the tables property.
         if (is_string($tables)) {
             array_push($this->tables, $tables);
         }

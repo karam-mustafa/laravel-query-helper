@@ -48,6 +48,7 @@ class UpdateHelper extends BaseHelper
                 $this->setField($key);
             }
 
+            // build a statement, then execute it.
             $this->buildStatement()->executeAll();
 
             return $this;
@@ -69,9 +70,13 @@ class UpdateHelper extends BaseHelper
         try {
             $query = sprintf(
                 "UPDATE %s SET %s =  CASE %s END WHERE id IN (%s)",
+                // set the table name to update.
                 $this->getTableName(),
+                // set the field that we want to update.
                 $this->getField(),
+                // get the cases sql built statement.
                 $this->getCases(),
+                // get the ids to select only these items to update.
                 $this->getIds()
             );
 
@@ -95,12 +100,16 @@ class UpdateHelper extends BaseHelper
         $cases = [];
         foreach ($this->getIds() as $index => $id) {
             $val = $this->checkIfInteger($index)
+                // if the index is an integer, then we get the value.
                 ? $this->getValues()[$index]
+                // else we check if the key dose not have any single quote.
                 : '\''.str_replace("'", '"', $this->getValues()[$index]).'\'';
 
             $cases[] = "WHEN id = {$id} then ".$val;
         }
+
         $this->setIds(implode(',', $this->getIds()));
+
         $this->setCases(implode(' ', $cases));
 
         return $this;
