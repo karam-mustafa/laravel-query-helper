@@ -4,16 +4,34 @@ namespace KMLaravel\QueryHelper\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use KMLaravel\QueryHelper\Classes\QueryHelper;
+use KMLaravel\QueryHelper\Commands\InstallCommand;
 
+/**
+ * Class QueryHelperServiceProviders
+ *
+ * @author karam mustafa
+ * @package KMLaravel\QueryHelper\Providers
+ */
 class QueryHelperServiceProviders extends ServiceProvider
 {
 
+    /**
+     *
+     *
+     * @author karam mustafa
+     */
     public function boot()
     {
         $this->registerFacades();
         $this->publishesPackages();
+        $this->resolveCommands();
     }
 
+    /**
+     *
+     *
+     * @author karam mustafa
+     */
     public function register()
     {
     }
@@ -37,6 +55,20 @@ class QueryHelperServiceProviders extends ServiceProvider
         $this->publishes([
             __DIR__."/../Config/query_helper.php" => config_path("query_helper.php")
         ], "query-helper-config");
+    }
+
+    /**
+     *
+     *
+     * @author karam mustafa
+     */
+    private function resolveCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                InstallCommand::class,
+            ]);
+        }
     }
 
 }
