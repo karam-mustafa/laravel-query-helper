@@ -2,8 +2,8 @@
 
 # Laravel Query Helper
 
-Laravel Query Helper was developed for [laravel 7.2+](http://laravel.com/) to help you optimizing
-sql queries, this package will contain all advanced sql queries to Help us write better and faster queries and clean code.
+Laravel Query Helper was developed for [laravel 7.2+](http://laravel.com/) to help you optimize
+sql queries, this package will contain all advanced SQL queries to Help us write better and faster queries and clean code.
 
 Installation
 ------------
@@ -33,7 +33,7 @@ Please see the [CHANGELOG](https://github.com/karam-mustafa/laravel-query-helper
 Security
 --------
 If you discover any security related issues, please email them first to karam2mustafa@gmail.com, 
-if we do not fix it within a short period of time please open new issue describe your problem. 
+if we do not fix it within a short period of time please open a new issue describe your problem. 
 
 Credits
 -------
