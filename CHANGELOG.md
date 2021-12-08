@@ -1,5 +1,8 @@
 #Changelog
 
+## v1.4.0
+* Add install the package via command 'php artisan query-helper:install'
+
 ## v1.3.1
 * Fix multi fast join
 * Improve code explanations
