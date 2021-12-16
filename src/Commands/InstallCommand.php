@@ -24,7 +24,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $description = 'install all laravel-query-helper dependencies';
+    protected $description = 'install all laravel-query-helper package dependencies';
 
     /**
      * Create a new command instance.
@@ -45,6 +45,8 @@ class InstallCommand extends Command
     {
         Artisan::call('vendor:publish --provider="KMLaravel\\KMLaravel\QueryHelper\Facade\QueryHelperFacade\Providers\\KMLaravel\QueryHelper\Facade\QueryHelperFacadeServiceProviders"');
         Artisan::call('vendor:publish --tag=query-helper-config');
+
+        $this->info('<info> Install the dependencies was success</info>');
 
         if ($this->confirm('Would you like to show some love by starring the repo?', true)) {
             if (PHP_OS_FAMILY === 'Darwin') {

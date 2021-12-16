@@ -2,10 +2,13 @@
     "name": "kmlaravel/laravel-query-helper",
     "description": "a Laravel package help you to execute more effective databases queries",
     "license": "MIT",
+    "homepage": "https://github.com/karam-mustafa/laravel-query-helper",
     "authors": [
         {
-            "name": "Karam mustafa",
-            "email": "karam2mustafa@gmail.com"
+            "name": "karam  mustafa",
+            "email": "karam2mustafa@gmail.com",
+            "homepage": "https://github.com/karam-mustafa",
+            "role": "Developer"
         }
     ],
     "require": {
