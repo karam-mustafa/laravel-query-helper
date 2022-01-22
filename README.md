@@ -1,7 +1,8 @@
 ![logo](assets/logo.png)
 
 # Laravel Query Helper
-
+----------
+## This package has moved to be within syrian open source community, you still can use this package from here, but the Future releases will be [here](https://github.com/Syrian-Open-Source/laravel-query-helper)  
 Laravel Query Helper was developed for [laravel 7.2+](http://laravel.com/) to help you optimize
 sql queries, this package will contain all advanced SQL queries to Help us write better and faster queries and clean code.
 
